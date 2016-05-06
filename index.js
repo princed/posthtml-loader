@@ -4,9 +4,9 @@
 
 'use strict'
 
-let loaderUtils = require('loader-utils')
+var loaderUtils = require('loader-utils')
 
-let posthtml = require('posthtml')
+var posthtml = require('posthtml')
 
 module.exports = function (source) {
   if (this.cacheable) this.cacheable()
@@ -29,8 +29,10 @@ module.exports = function (source) {
 
   posthtml(plugins)
     .process(source.toString())
-    .then(result => callback(null, result.html))
-    .catch((error) => {
+    .then(function (result) {
+      callback(null, result.html)
+    })
+    .catch(function (error) {
       if (error.name === 'HTML Syntax Error') {
         loader.emitError(error.message + error.showSourceCode())
         callback()
